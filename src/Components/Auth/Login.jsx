@@ -3,11 +3,29 @@ import { Link } from "react-router-dom";
 import { AuthContext } from "../../Providers/AuthProvider";
 
 const Login = () => {
-    const {setShowLogin} = useContext(AuthContext);
-    const loading = false
+    const { setShowLogin, login, setLoading, loading } = useContext(AuthContext);
     const [visibility, setVisibility] = useState(false);
-    const handleSubmit = e =>{
+    const handleSubmit = e => {
         e.preventDefault()
+
+        const form = e.target
+        const email = form.email.value
+        const password = form.password.value
+        login(email, password).then(res => {
+            console.log('logged in successfull', res.user)
+            window.location.reload()
+            navigate(location?.state ? location.state : '/');
+            //   setTimeout(() => { window.location.reload() }, 1000)
+        }).catch(err => {
+            setLoading(false)
+            if (err.message === 'Firebase: Error (auth/invalid-email).') {
+                errorNotify('invalid email')
+            } else if (err.message === 'Firebase: Error (auth/invalid-login-credentials).') {
+                errorNotify('Invalid login information')
+            }
+            console.error(err.message)
+        })
+
     }
     return (
         <>
@@ -37,10 +55,10 @@ const Login = () => {
                     <button onClick={() => { connectGoogle().then(() => { navigate(location?.state ? location.state : '/'); }) }} className="w-full font-medium border py-3 rounded-full flex hover:bg-slate-50 justify-center items-center gap-3">  <p>Continue with Google</p></button>
                 </div>
                 <div>
-                    <p>New to Task Manager? <Link onClick={()=>{setShowLogin(false)}}><span className="text-blue-500 cursor-pointer font-semibold">Join now</span></Link> </p>
+                    <p>New to Task Manager? <Link onClick={() => { setShowLogin(false) }}><span className="text-blue-500 cursor-pointer font-semibold">Join now</span></Link> </p>
                 </div>
-                
-                
+
+
             </div>
         </>
     );

@@ -3,9 +3,13 @@ import Login from "../../Auth/Login";
 import { useContext, useState } from "react";
 import Join from "../../Auth/Join";
 import { AuthContext } from "../../../Providers/AuthProvider";
-
+import avatar from '../../../assets/avatar.png'
 const Navbar = () => {
-    const {showLogin} = useContext(AuthContext);
+    const { showLogin, setShowLogin ,user ,logout} = useContext(AuthContext);
+    const LoginHandler = () => {
+        setShowLogin(true)
+        document.getElementById('my_modal_3').showModal()
+    }
     const links =
         <>
             <NavLink to='/'>Home</NavLink>
@@ -32,23 +36,50 @@ const Navbar = () => {
                     </ul>
                 </div>
                 <div className="navbar-end">
-                    <p className="btn" onClick={() => document.getElementById('my_modal_3').showModal()}>Login</p>
                     <dialog id="my_modal_3" className="modal">
                         <div className="modal-box">
                             <form method="dialog">
                                 {/* if there is a button in form, it will close the modal */}
                                 <button className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</button>
                             </form>
-                            {showLogin?
-                            <>
-                            <Login></Login>
-                            </>
-                            :
-                            <>
-                            <Join></Join>
-                            </>}
+                            {showLogin ?
+                                <>
+                                    <Login></Login>
+                                </>
+                                :
+                                <>
+                                    <Join></Join>
+                                </>}
                         </div>
                     </dialog>
+                    <div>
+                        {
+                            user ? <>
+                                <div className="dropdown dropdown-end">
+                                    <label tabIndex={0} className="btn btn-ghost btn-circle avatar">
+                                        <div className="md:w-10 w-7 rounded-full">
+                                            <img title={user.displayName} src={user.photoURL||avatar} />
+                                        </div>
+                                    </label>
+                                    <ul tabIndex={0} className="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52">
+                                        <li>
+                                            <a className="justify-between">
+                                                {user.displayName}
+                                                <span className="badge">New</span>
+                                            </a>
+                                        </li>
+                                        <li><a>Profile</a></li>
+                                        <li><a onClick={() => { logout() }}>Logout</a></li>
+                                    </ul>
+                                </div>
+
+                            </> : <>
+                                {/* If there is no user */}
+                                <p className="btn" onClick={LoginHandler}>Login</p>
+                            </>
+                        }
+
+                    </div>
                 </div>
             </div>
         </div>

@@ -1,14 +1,40 @@
 import { useContext, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, Navigate } from "react-router-dom";
 import { AuthContext } from "../../Providers/AuthProvider";
-
+import { reload, updateProfile } from "firebase/auth";
+import avatar from '../../../src/assets/avatar.png' 
 const Join = () => {
-    const {setShowLogin} = useContext(AuthContext);
+    // global context
+    const {setShowLogin,
+        setLoading,
+        join,loading,auth,logout
+    } = useContext(AuthContext);
     const [visibility, setVisibility] = useState(false);
-    const loading = false
+
     // Sign Up button fuctions
     const handleSubmit = e => {
         e.preventDefault();
+        const form = e.target;
+        const name = form.name.value
+        const email = form.email.value
+        const password = form.password.value
+
+        join(email,password)
+        .then(res=>{
+            updateProfile(auth.currentUser,{
+                displayName:name
+            }).then(()=>{
+                window.location.reload()
+            })
+        }).catch(err=>{
+            setLoading(false)
+            if (err.message === 'Firebase: Error (auth/email-already-in-use).') {
+                alert('Email already in use')
+            } else if (err.message === 'Firebase: Error (auth/invalid-email).') {
+                alert('Invalid email')
+            }
+        })
+
     }
     return (
         <div className="flex flex-col
