@@ -6,10 +6,6 @@ export const router = createBrowserRouter([
     {
       path: "/",
       element:<Root></Root>,
-    },
-    {
-      path:'/join',
-      element:<Join></Join>
     }
   ]);
   
