@@ -18,7 +18,6 @@ const Join = () => {
         const name = form.name.value
         const email = form.email.value
         const password = form.password.value
-
         join(email,password)
         .then(res=>{
             updateProfile(auth.currentUser,{
