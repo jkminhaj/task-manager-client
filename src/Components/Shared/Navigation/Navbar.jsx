@@ -1,12 +1,14 @@
-import { Link, NavLink } from "react-router-dom";
+import { Link, NavLink, useNavigate } from "react-router-dom";
 import Login from "../../Auth/Login";
 import { useContext, useState } from "react";
 import Join from "../../Auth/Join";
 import { AuthContext } from "../../../Providers/AuthProvider";
 import avatar from '../../../assets/avatar.png'
 import task from '../../../assets/task.png'
+import './Nav.css'
 const Navbar = () => {
     const { showLogin, setShowLogin ,user ,logout} = useContext(AuthContext);
+    const navigate = useNavigate()
     const LoginHandler = () => {
         setShowLogin(true)
         document.getElementById('my_modal_3').showModal()
@@ -14,12 +16,14 @@ const Navbar = () => {
     const links =
         <>
             <NavLink to='/'>Home</NavLink>
-            <NavLink to='/'>About</NavLink>
-            <NavLink to='/'>Dashboard</NavLink>
+            <NavLink to='/contactus'>Contact Us</NavLink>
+            <NavLink to='/about'>About Us</NavLink>
+            <NavLink to='/features'>Features</NavLink>
+            {user&&<NavLink to='/dashboard'>Dashboard</NavLink>}
         </>
     return (
-        <div>
-            <div className="navbar bg-base-100">
+        <div className="bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500">
+            <div className="navbar ">
                 <div className="navbar-start">
                     <div className="dropdown">
                         <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden">
@@ -70,7 +74,7 @@ const Navbar = () => {
                                             </a>
                                         </li>
                                         <li><a>Profile</a></li>
-                                        <li><a onClick={() => { logout() }}>Logout</a></li>
+                                        <li><a onClick={() => { logout().then(()=>{navigate('/')}) }}>Logout</a></li>
                                     </ul>
                                 </div>
 
