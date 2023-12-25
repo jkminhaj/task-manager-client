@@ -3,6 +3,10 @@ import Task from "./Task";
 import AddTask from "./AddTask/AddTask";
 import useTasks from "../../hooks/useTasks";
 import axios from "axios";
+import AOS from 'aos';
+import 'aos/dist/aos.css'; // You can also use <link> for styles
+// ..
+AOS.init();
 
 const Tasks = () => {
     const [tasks, refetch] = useTasks();
@@ -23,7 +27,7 @@ const Tasks = () => {
     }
     return (
         <div className="border md:w-5/6 px-5 pt-2">
-            <p className="text-3xl font-bold text-center mt-2">Task Management Dashboard</p>
+            <p data-aos="zoom-in" className="text-3xl font-bold text-center mt-2">Task Management Dashboard</p>
             <hr className="my-4" />
             <div>
                 <button onClick={handleAddTask} className="btn my-3 border border-blue-400 bg-none">Add a Task</button>

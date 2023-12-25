@@ -43,7 +43,7 @@ const Login = () => {
       
     return (
         <>
-            <div className="flex flex-col
+            <div data-aos="zoom-out" className="flex flex-col
          justify-center items-center gap-6 md:gap-10 md:my-5">
                 <div className="rounded   px-5">
                     <h1 className="text-3xl mb-2 font-medium">Welcome Back!</h1>

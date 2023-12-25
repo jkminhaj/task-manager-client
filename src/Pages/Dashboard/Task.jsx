@@ -15,7 +15,7 @@ const Task = ({ t , refetch }) => {
           });
     }
     return (
-        <div>
+        <div data-aos="zoom-in">
             <div className=" bg-base-100 border">
                 <div className="card-body">
                     <h2 className="card-title">{title}</h2>
@@ -29,7 +29,7 @@ const Task = ({ t , refetch }) => {
                     </div>
                 </div>
             </div>
-            <Toaster></Toaster>
+            
         </div>
     );
 };

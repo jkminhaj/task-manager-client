@@ -3,7 +3,7 @@ import React from 'react';
 
 const ContactUs = () => {
   return (
-    <div className="bg-gradient-to-b from-blue-500 to-purple-500 p-8 text-white">
+    <div  className="bg-gradient-to-b from-blue-500 to-purple-500 p-8 text-white">
       <h1 className='text-4xl font-bold mb-8'>Contact Us</h1>
       
       <div className='grid grid-cols-1 md:grid-cols-2 gap-8'>
@@ -13,14 +13,14 @@ const ContactUs = () => {
           <p>Email: <a href="mailto:support@taskhub.com">support@taskhub.com</a></p>
         </div>
         
-        <div>
+        <div data-aos="zoom-out-down">
           <h2 className='text-2xl font-semibold mb-2'>Business Inquiries</h2>
           <p>For business-related questions or partnerships, reach out to our business team.</p>
           <p>Email: <a href="mailto:business@taskhub.com">business@taskhub.com</a></p>
         </div>
       </div>
 
-      <div className="mt-8">
+      <div className="mt-8" data-aos="zoom-out-down">
         <h2 className="text-2xl font-semibold mb-4">Send us a Message</h2>
         <form>
           <div className="mb-4">
